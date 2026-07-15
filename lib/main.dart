@@ -8,9 +8,11 @@ import 'theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(     //firebase auth initialized
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
   runApp(const MyApp());
 }
 
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Taskly',
+      title: 'Ordely',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
       home: const AuthGate(),

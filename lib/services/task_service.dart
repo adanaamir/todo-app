@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/task_model.dart';
 
+//uses clloud firestore
 class TaskService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 

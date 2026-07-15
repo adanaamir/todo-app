@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../models/task_model.dart';
 import '../theme/app_theme.dart';
 
+//UI for the task interaction
 class TaskTile extends StatelessWidget {
   final TaskModel task;
   final VoidCallback onToggle;
@@ -35,7 +36,7 @@ class TaskTile extends StatelessWidget {
         key: ValueKey(task.id),
         endActionPane: ActionPane(
           motion: const BehindMotion(),
-          extentRatio: 0.42,
+          extentRatio: 0.55,
           children: [
             CustomSlidableAction(
               onPressed: (_) => onEdit(),
