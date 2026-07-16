@@ -95,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen>
           ),
           child: SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
             child: FadeTransition(
               opacity: _fadeAnim,
               child: SlideTransition(
@@ -108,28 +108,28 @@ class _RegisterScreenState extends State<RegisterScreen>
                       onPressed: () => Navigator.pop(context),
                       icon: Icon(
                         Icons.arrow_back_ios_new_rounded,
-                        color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                        color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary,
                       ),
                       padding: EdgeInsets.zero,
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 20),
                     Text(
                       'Create account',
                       style: GoogleFonts.poppins(
-                        fontSize: 32,
+                        fontSize: 26,
                         fontWeight: FontWeight.w700,
-                        color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                        color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 4),
                     Text(
                       'Start organizing your tasks',
                       style: GoogleFonts.poppins(
-                        fontSize: 15,
-                        color: isDark ? const Color(0xFFB89F8A) : AppTheme.textSecondary,
+                        fontSize: 13.5,
+                        color: isDark ? AppTheme.textSecondaryDm : AppTheme.textSecondary,
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 32),
 
                     if (_errorMessage != null) ...[
                       _ErrorBanner(message: _errorMessage!),
@@ -145,8 +145,8 @@ class _RegisterScreenState extends State<RegisterScreen>
                             controller: _emailCtrl,
                             keyboardType: TextInputType.emailAddress,
                             style: TextStyle(
-                            color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
-                          ),
+                              color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary,
+                            ),
                             decoration: const InputDecoration(
                               labelText: 'Email',
                               hintText: 'you@example.com',
@@ -163,13 +163,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                               return null;
                             },
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 12),
                           // Password
                           TextFormField(
                             controller: _passwordCtrl,
                             obscureText: _obscurePassword,
                             style: TextStyle(
-                              color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                              color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary,
                             ),
                             decoration: InputDecoration(
                               labelText: 'Password',
@@ -197,13 +197,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                               return null;
                             },
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 12),
                           // Confirm Password
                           TextFormField(
                             controller: _confirmPasswordCtrl,
                             obscureText: _obscureConfirm,
                             style: TextStyle(
-                              color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                              color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary,
                             ),
                             decoration: InputDecoration(
                               labelText: 'Confirm Password',
@@ -231,7 +231,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                               return null;
                             },
                           ),
-                          const SizedBox(height: 28),
+                          const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,
                             child: _isLoading
@@ -239,13 +239,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 : GestureDetector(
                                     onTap: _register,
                                     child: Container(
-                                      height: 52,
+                                      height: 46,
                                       decoration: BoxDecoration(
                                         gradient: AppTheme.primaryGradient,
-                                        borderRadius: BorderRadius.circular(16),
+                                        borderRadius: BorderRadius.circular(12),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: const Color(0xFFCB7D3A).withValues(alpha: 0.35),
+                                            color: AppTheme.primary.withValues(alpha: 0.35),
                                             blurRadius: 16,
                                             offset: const Offset(0, 6),
                                           ),
@@ -256,7 +256,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                           'Create Account',
                                           style: GoogleFonts.poppins(
                                             color: Colors.white,
-                                            fontSize: 16,
+                                            fontSize: 14.5,
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
@@ -268,24 +268,30 @@ class _RegisterScreenState extends State<RegisterScreen>
                       ),
                     ),
                     const SizedBox(height: 24),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Already have an account? ',
-                          style: GoogleFonts.poppins(
-                            color: AppTheme.textSecondary,
-                            fontSize: 14,
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Text.rich(
+                          TextSpan(
+                            text: 'Already have an account? ',
+                            style: GoogleFonts.poppins(
+                              color: AppTheme.textSecondary,
+                              fontSize: 14,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: 'Sign In',
+                                style: GoogleFonts.poppins(
+                                  color: AppTheme.primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
                           ),
+                          textAlign: TextAlign.center,
                         ),
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          style: TextButton.styleFrom(
-                            foregroundColor: const Color(0xFFCB7D3A),
-                          ),
-                          child: const Text('Sign In'),
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
@@ -335,10 +341,10 @@ class _LoadingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 52,
+      height: 46,
       decoration: BoxDecoration(
         gradient: AppTheme.primaryGradient,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: const Center(
         child: SizedBox(

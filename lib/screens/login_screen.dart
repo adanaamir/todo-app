@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen>
           ),
           child: SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 90),
             child: FadeTransition(
               opacity: _fadeAnim,
               child: SlideTransition(
@@ -100,25 +100,24 @@ class _LoginScreenState extends State<LoginScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 30),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 36),
                     Text(
-                      'Welcome to Ordely!',
+                      'Welcome to \nOrdely!',
                       style: GoogleFonts.poppins(
-                        fontSize: 32,
+                        fontSize: 26,    //final font size
                         fontWeight: FontWeight.w700,
-                        color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                        color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 4),  //final
                     Text(
                       'Sign in to continue',
                       style: GoogleFonts.poppins(
-                        fontSize: 15,
-                        color: isDark ? const Color(0xFFB89F8A) : AppTheme.textSecondary,
+                        fontSize: 13.5,
+                        color: isDark ? AppTheme.textSecondaryDm : AppTheme.textSecondary,
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 32),
 
                     // Error Banner
                     if (_errorMessage != null) ...[
@@ -135,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen>
                             controller: _emailCtrl,
                             keyboardType: TextInputType.emailAddress,
                             style: TextStyle(
-                              color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                              color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary,
                             ),
                             decoration: const InputDecoration(
                               labelText: 'Email',
@@ -153,14 +152,14 @@ class _LoginScreenState extends State<LoginScreen>
                               return null;
                             },
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 12),
                           // Password
                           TextFormField(
                             controller: _passwordCtrl,
                             obscureText: _obscurePassword,
                             style: TextStyle(
-                            color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
-                          ),
+                              color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary,
+                            ),
                             decoration: InputDecoration(
                               labelText: 'Password',
                               hintText: '••••••••',
@@ -184,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen>
                               return null;
                             },
                           ),
-                          const SizedBox(height: 28),
+                          const SizedBox(height: 24),
                           // Login Button
                           SizedBox(
                             width: double.infinity,
@@ -193,13 +192,13 @@ class _LoginScreenState extends State<LoginScreen>
                                 : GestureDetector(
                                     onTap: _login,
                                     child: Container(
-                                      height: 52,
+                                      height: 46,
                                       decoration: BoxDecoration(
                                         gradient: AppTheme.primaryGradient,
-                                        borderRadius: BorderRadius.circular(16),
+                                        borderRadius: BorderRadius.circular(12),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: const Color(0xFFCB7D3A).withValues(alpha: 0.35),
+                                            color: AppTheme.primary.withValues(alpha: 0.35),
                                             blurRadius: 16,
                                             offset: const Offset(0, 6),
                                           ),
@@ -210,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen>
                                           'Sign In',
                                           style: GoogleFonts.poppins(
                                             color: Colors.white,
-                                            fontSize: 16,
+                                            fontSize: 14.5,
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
@@ -222,29 +221,34 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                     ),
                     const SizedBox(height: 24),
-                    // Register link
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Don't have an account? ",
-                          style: GoogleFonts.poppins(
-                            color: AppTheme.textSecondary,
-                            fontSize: 14,
+                    GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const RegisterScreen()),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Text.rich(
+                          TextSpan(
+                            text: "Don't have an account? ",
+                            style: GoogleFonts.poppins(
+                              color: AppTheme.textSecondary,
+                              fontSize: 14,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: 'Sign Up',
+                                style: GoogleFonts.poppins(
+                                  color: AppTheme.primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
                           ),
+                          textAlign: TextAlign.center,
                         ),
-                        TextButton(
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const RegisterScreen()),
-                          ),
-                          style: TextButton.styleFrom(
-                            foregroundColor: const Color(0xFFCB7D3A),
-                          ),
-                          child: const Text('Sign Up'),
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
@@ -295,10 +299,10 @@ class _LoadingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 52,
+      height: 46,
       decoration: BoxDecoration(
         gradient: AppTheme.primaryGradient,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: const Center(
         child: SizedBox(

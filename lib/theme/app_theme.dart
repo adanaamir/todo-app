@@ -3,58 +3,58 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   // ── Brand accent (same in both modes) ───────────────────────────────────
-  static const Color primary    = Color(0xFFCB7D3A);   // warm amber
-  static const Color primaryLight = Color(0xFFE8A860); // light warm amber
+  static const Color primary    = Color(0xFF7C3AED);   // rich royal purple
+  static const Color primaryLight = Color(0xFFA78BFA); // soft purple
   static const Color secondary  = Color(0xFFFF6584);
   static const Color success    = Color(0xFF22C55E);
   static const Color error      = Color(0xFFEF4444);
   static const Color warning    = Color(0xFFFFD166);
 
   // ── Light mode static colours (used as fallbacks / const refs) ─────────
-  static const Color bgDark      = Color(0xFFFAF0E2);   // warm cream
-  static const Color bgCard      = Color(0xFFFFFAF5);   // warm white card
-  static const Color bgCardLight = Color(0xFFF5EAD8);   // champagne input bg
-  static const Color surface     = Color(0xFFFFFAF5);
+  static const Color bgDark      = Color(0xFFF5F3FF);   // softest lavender
+  static const Color bgCard      = Color(0xFFFAF9FF);   // light card
+  static const Color bgCardLight = Color(0xFFEDE9FE);   // light purple input bg
+  static const Color surface     = Color(0xFFFAF9FF);
 
-  static const Color textPrimary   = Color(0xFF2D1B0E);  // deep warm brown
-  static const Color textSecondary = Color(0xFF7A5C45);  // warm mid-brown
-  static const Color textMuted     = Color(0xFFBBA090);  // light warm grey
+  static const Color textPrimary   = Color(0xFF2E1065);  // deep violet-black
+  static const Color textSecondary = Color(0xFF5B21B6);  // deep purple
+  static const Color textMuted     = Color(0xFF7C3AED);  // muted purple
 
   // ── Dark mode static colours ────────────────────────────────────────────
-  static const Color bgDarkDm       = Color(0xFF1A1008);  // deep espresso
-  static const Color bgCardDm       = Color(0xFF2A1C10);  // dark card
-  static const Color bgCardLightDm  = Color(0xFF362415);  // dark input
-  static const Color surfaceDm      = Color(0xFF241910);
+  static const Color bgDarkDm       = Color(0xFF0F0C1B);  // midnight dark purple
+  static const Color bgCardDm       = Color(0xFF1A172E);  // rich dark purple card
+  static const Color bgCardLightDm  = Color(0xFF25213F);  // dark lavender input
+  static const Color surfaceDm      = Color(0xFF141224);
 
-  static const Color textPrimaryDm   = Color(0xFFF5E8D5); // warm cream
-  static const Color textSecondaryDm = Color(0xFFB89F8A);
-  static const Color textMutedDm     = Color(0xFF8B7060);
+  static const Color textPrimaryDm   = Color(0xFFECE9FC); // pale lavender-white
+  static const Color textSecondaryDm = Color(0xFFB4B0C4); // soft lavender-grey
+  static const Color textMutedDm     = Color(0xFF827F93); // dark lavender-grey
 
   // ── Gradients ─────────────────────────────────────────────────────────
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [Color(0xFFCB7D3A), Color(0xFFE8A860)],
+    colors: [Color(0xFF6D28D9), Color(0xFFA78BFA)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
-  // Light bg gradient (warm peach → golden)
+  // Light bg gradient (light lavender → wisteria)
   static const LinearGradient bgGradient = LinearGradient(
     colors: [
-      Color(0xFFFAF0E2),   // warm ivory
-      Color(0xFFF5DFC0),   // champagne
-      Color(0xFFECC499),   // warm golden peach
+      Color(0xFFF5F3FF),   // softest lavender
+      Color(0xFFE9E3FF),   // pale lavender
+      Color(0xFFDCD3FF),   // light wisteria
     ],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     stops: [0.0, 0.55, 1.0],
   );
 
-  // Dark bg gradient (espresso → deep terracotta)
+  // Dark bg gradient (midnight purple → deep wisteria)
   static const LinearGradient bgGradientDark = LinearGradient(
     colors: [
-      Color(0xFF1A1008),   // deep espresso
-      Color(0xFF2A1C10),   // dark brown
-      Color(0xFF3D2415),   // deep terracotta
+      Color(0xFF0F0C1B),   // midnight dark purple
+      Color(0xFF1A172E),   // rich dark purple
+      Color(0xFF2B1A4A),   // deep wisteria
     ],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
@@ -77,7 +77,7 @@ class AppTheme {
     textMain: textPrimary,
     textSub: textSecondary,
     hintColor: textMuted,
-    inputBorder: const Color(0xFFE0C8A8),
+    inputBorder: const Color(0xFFD8B4FE),
   );
 
   // ── Dark Theme ───────────────────────────────────────────────────────
@@ -90,7 +90,7 @@ class AppTheme {
     textMain: textPrimaryDm,
     textSub: textSecondaryDm,
     hintColor: textMutedDm,
-    inputBorder: const Color(0xFF4A3520),
+    inputBorder: const Color(0xFF581C87),
   );
 
   static ThemeData _buildTheme({
@@ -132,47 +132,47 @@ class AppTheme {
         filled: true,
         fillColor: inputFill,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: inputBorder, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: primary, width: 2),
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: primary, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: error, width: 1.5),
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: error, width: 1),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: error, width: 2),
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: error, width: 1.5),
         ),
-        hintStyle: TextStyle(color: hintColor),
-        labelStyle: TextStyle(color: textSub),
+        hintStyle: TextStyle(color: hintColor, fontSize: 13.5),
+        labelStyle: TextStyle(color: textSub, fontSize: 13.5),
         prefixIconColor: textSub,
         contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primary,
           foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          padding: const EdgeInsets.symmetric(vertical: 14),
           elevation: 0,
           textStyle:
-              GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
+              GoogleFonts.poppins(fontSize: 14.5, fontWeight: FontWeight.w600),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: isLight ? primary : primaryLight,
           textStyle:
-              GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
+              GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
         ),
       ),
       appBarTheme: AppBarTheme(

@@ -166,15 +166,15 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen>
                 : GestureDetector(
                     onTap: _save,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
                       decoration: BoxDecoration(
                         gradient: AppTheme.primaryGradient,
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFFCB7D3A).withValues(alpha: 0.30),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
+                            color: AppTheme.primary.withValues(alpha: 0.30),
+                            blurRadius: 8,
+                            offset: const Offset(0, 3),
                           ),
                         ],
                       ),
@@ -183,7 +183,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen>
                         style: GoogleFonts.poppins(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
-                          fontSize: 14,
+                          fontSize: 13,
                         ),
                       ),
                     ),
@@ -205,7 +205,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen>
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _titleCtrl,
-                  style: const TextStyle(color: AppTheme.textPrimary),
+                  style: TextStyle(color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary),
                   maxLines: 1,
                   decoration: const InputDecoration(
                     hintText: 'What do you need to do?',
@@ -221,33 +221,33 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen>
                     return null;
                   },
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 18),
 
                 // Description
                 _SectionLabel(label: 'Description (optional)'),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _descCtrl,
-                  style: const TextStyle(color: AppTheme.textPrimary),
-                  maxLines: 4,
+                  style: TextStyle(color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary),
+                  maxLines: 3,
                   decoration: const InputDecoration(
                     hintText: 'Add some details...',
                     prefixIcon: Padding(
-                      padding: EdgeInsets.only(bottom: 60),
+                      padding: EdgeInsets.only(bottom: 45),
                       child: Icon(Icons.notes_rounded),
                     ),
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 18),
 
                 // Priority
                 _SectionLabel(label: 'Priority'),
-                const SizedBox(height: 12),
+                const SizedBox(height: 10),
                 _PrioritySelector(
                   selected: _priority,
                   onChanged: (p) => setState(() => _priority = p),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 18),
 
                 // Due Date
                 _SectionLabel(label: 'Due Date (optional)'),
@@ -257,7 +257,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen>
                   onPick: _pickDate,
                   onClear: () => setState(() => _dueDate = null),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 32),
               ],
             ),
           ),
@@ -299,8 +299,8 @@ class _PrioritySelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final unselectedBg = isDark ? const Color(0xFF362415) : AppTheme.bgCardLight;
-    final unselectedFg = isDark ? const Color(0xFF8B7060) : AppTheme.textMuted;
+    final unselectedBg = isDark ? AppTheme.bgCardLightDm : AppTheme.bgCardLight;
+    final unselectedFg = isDark ? AppTheme.textMutedDm : AppTheme.textMuted;
     return Row(
       children: TaskPriority.values.map((p) {
         final isSelected = p == selected;
@@ -328,12 +328,12 @@ class _PrioritySelector extends StatelessWidget {
               duration: const Duration(milliseconds: 200),
               margin: EdgeInsets.only(right: p != TaskPriority.high ? 10 : 0),
               padding:
-                  const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               decoration: BoxDecoration(
                 color: isSelected
                     ? color.withValues(alpha: 0.18)
                     : unselectedBg,
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   color: isSelected ? color : Colors.transparent,
                   width: 1.5,
@@ -379,14 +379,17 @@ class _DueDatePicker extends StatelessWidget {
     return GestureDetector(
       onTap: onPick,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
         decoration: BoxDecoration(
-          color: AppTheme.bgCardLight,
-          borderRadius: BorderRadius.circular(16),
+          color: Theme.of(context).inputDecorationTheme.fillColor,
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: date != null
                 ? AppTheme.primary.withValues(alpha: 0.5)
-                : const Color(0xFF333360),
+                : (Theme.of(context).brightness == Brightness.dark
+                    ? const Color(0xFF581C87)
+                    : const Color(0xFFD8B4FE)),
+            width: 1,
           ),
         ),
         child: Row(
@@ -394,7 +397,7 @@ class _DueDatePicker extends StatelessWidget {
             Icon(
               Icons.calendar_today_rounded,
               color: date != null ? AppTheme.primary : AppTheme.textSecondary,
-              size: 20,
+              size: 18,
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -405,7 +408,7 @@ class _DueDatePicker extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   color:
                       date != null ? AppTheme.textPrimary : AppTheme.textMuted,
-                  fontSize: 14,
+                  fontSize: 13.5,
                 ),
               ),
             ),

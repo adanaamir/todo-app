@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class PremiumAmbientBackground extends StatelessWidget {
   final Widget child;
@@ -9,13 +10,13 @@ class PremiumAmbientBackground extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
-      // Warm ivory base (light) / Deep espresso base (dark)
-      color: isDark ? const Color(0xFF1A1008) : const Color(0xFFFAF0E2),
+      // Soft lavender base (light) / Midnight dark purple base (dark)
+      color: isDark ? AppTheme.bgDarkDm : AppTheme.bgDark,
       child: Stack(
         children: [
-          // ── Large bottom warm peach / terracotta glow ──────────────────
+          // ── Large bottom warm purple glow ──────────────────
 
-          // ── Top-right warm amber glow ──────────────────────────────────
+          // ── Top-right violet glow ──────────────────────────────────
           Positioned(
             top: -100,
             right: -120,
@@ -27,15 +28,15 @@ class PremiumAmbientBackground extends StatelessWidget {
                 gradient: RadialGradient(
                   colors: [
                     isDark
-                        ? const Color(0xFF4A2A0C).withValues(alpha: 0.55)
-                        : const Color(0xFFF0C070).withValues(alpha: 0.55),
+                        ? const Color(0xFF2E1A47).withValues(alpha: 0.60)
+                        : const Color(0xFFDDD6FE).withValues(alpha: 0.65),
                     const Color(0x00000000),
                   ],
                 ),
               ),
             ),
           ),
-          // ── Top-left rose / plum blush accent ─────────────────────────
+          // ── Top-left plum/lavender blush accent ─────────────────────────
           Positioned(
             top: -60,
             left: -100,
@@ -47,15 +48,15 @@ class PremiumAmbientBackground extends StatelessWidget {
                 gradient: RadialGradient(
                   colors: [
                     isDark
-                        ? const Color(0xFF3D1828).withValues(alpha: 0.40)
-                        : const Color(0xFFF2C0D4).withValues(alpha: 0.45),
+                        ? const Color(0xFF3B1A54).withValues(alpha: 0.50)
+                        : const Color(0xFFEDE9FE).withValues(alpha: 0.60),
                     const Color(0x00000000),
                   ],
                 ),
               ),
             ),
           ),
-          // ── Bottom-right deep amber ────────────────────────────────────
+          // ── Bottom-right deep indigo/wisteria ────────────────────────────────────
           Positioned(
             bottom: -40,
             right: -60,
@@ -67,8 +68,8 @@ class PremiumAmbientBackground extends StatelessWidget {
                 gradient: RadialGradient(
                   colors: [
                     isDark
-                        ? const Color(0xFF3D2010).withValues(alpha: 0.50)
-                        : const Color(0xFFE09050).withValues(alpha: 0.40),
+                        ? const Color(0xFF1E0E3B).withValues(alpha: 0.60)
+                        : const Color(0xFFF3E8FF).withValues(alpha: 0.50),
                     const Color(0x00000000),
                   ],
                 ),

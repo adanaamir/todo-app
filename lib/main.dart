@@ -39,6 +39,19 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
+      builder: (context, child) {
+        final mediaQueryData = MediaQuery.of(context);
+        // Clamp text scaler to a maximum scale of 1.15 to prevent UI overflows
+        // while still respecting user accessibility preferences within reason.
+        final double clampedScale = mediaQueryData.textScaler.scale(10) / 10;
+        final double finalScale = clampedScale.clamp(0.9, 1.15);
+        return MediaQuery(
+          data: mediaQueryData.copyWith(
+            textScaler: TextScaler.linear(finalScale),
+          ),
+          child: child!,
+        );
+      },
       home: const AuthGate(),
     );
   }

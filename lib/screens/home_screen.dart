@@ -106,21 +106,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Task deleted',
                 style: GoogleFonts.poppins(
                   color: isDarkSnack
-                      ? const Color(0xFFF5E8D5)   // warm cream on dark
-                      : AppTheme.textPrimary,      // deep brown on light
+                      ? AppTheme.textPrimaryDm
+                      : AppTheme.textPrimary,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               backgroundColor: isDarkSnack
-                  ? const Color(0xFF2A1C10)        // dark espresso card
-                  : const Color(0xFFFFFAF5),       // warm white card
+                  ? AppTheme.bgCardDm
+                  : AppTheme.bgCard,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
                 side: BorderSide(
                   color: isDarkSnack
-                      ? const Color(0xFF4A3520)
-                      : const Color(0xFFEEE0CC),
+                      ? const Color(0xFF25213F)
+                      : const Color(0xFFE8E5F7),
                   width: 1,
                 ),
               ),
@@ -175,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //Custom App Bar
                 SliverAppBar(
                   backgroundColor: Colors.transparent,
-                  expandedHeight: 110,
+                  expandedHeight: 120,
                   pinned: true,
                   elevation: 0,
                   automaticallyImplyLeading: false,
@@ -193,11 +193,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(13),
                           color: isDark
                               ? AppTheme.primary.withValues(alpha: 0.30)
-                              : const Color(0xFFE8C898).withValues(alpha: 0.6),
+                              : AppTheme.primary.withValues(alpha: 0.20),
                           border: Border.all(
-                            color: isDark
-                                ? AppTheme.primary.withValues(alpha: 0.5)
-                                : const Color(0xFFD4A060).withValues(alpha: 0.5),
+                            color: AppTheme.primary.withValues(alpha: 0.5),
                             width: 1.5,
                           ),
                         ),
@@ -214,9 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 20,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: isDark
-                                      ? AppTheme.primary
-                                      : const Color(0xFFD4924A),
+                                  color: AppTheme.primary,
                                 ),
                                 child: Icon(
                                   isDark
@@ -235,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: Icon(
                         Icons.logout_rounded,
                         color: isDark
-                            ? const Color(0xFFB89F8A)
+                            ? AppTheme.textSecondaryDm
                             : AppTheme.textSecondary,
                       ),
                       onPressed: _logout,
@@ -248,28 +244,28 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.transparent,
                       child: SafeArea(
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(30, 30, 20, 0),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'Ordely',
                                 style: GoogleFonts.poppins(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w700,
                                   color: isDark
-                                      ? const Color(0xFFF5E8D5)
+                                      ? AppTheme.textPrimaryDm
                                       : AppTheme.textPrimary,
                                 ),
                               ),
-                              const SizedBox(height: 14),
+                              const SizedBox(height: 10),
                               Text(
                                 'Good day!',
                                 style: GoogleFonts.poppins(
-                                  fontSize: 22,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w700,
                                   color: isDark
-                                      ? const Color(0xFFF5E8D5)
+                                      ? AppTheme.textPrimaryDm
                                       : AppTheme.textPrimary,
                                 ),
                               ),
@@ -355,26 +351,17 @@ class _StatsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final progress = total > 0 ? completed / total : 0.0;
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          gradient: isDark
-              ? AppTheme.primaryGradient           // purple stays for dark
-              : const LinearGradient(
-                  colors: [Color(0xFFCB7D3A), Color(0xFFE8A860)], // warm golden
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+          gradient: AppTheme.primaryGradient,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: isDark
-                  ? AppTheme.primary.withValues(alpha: 0.3)
-                  : const Color(0xFFCB7D3A).withValues(alpha: 0.35),
+              color: AppTheme.primary.withValues(alpha: 0.30),
               blurRadius: 20,
               offset: const Offset(0, 6),
             ),
@@ -583,22 +570,23 @@ class _FloatingTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      margin: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+      margin: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+      padding: const EdgeInsets.symmetric(vertical: 6),
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF2A1C10) : Colors.white,
+        color: isDark ? AppTheme.bgCardDm : Colors.white,
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
             color: isDark
                 ? Colors.black.withValues(alpha: 0.4)
-                : const Color(0xFFCB7D3A).withValues(alpha: 0.15),
+                : AppTheme.primary.withValues(alpha: 0.15),
             blurRadius: 24,
             offset: const Offset(0, 6),
           ),
         ],
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _TabItem(label: 'All', value: 'all', selected: selected, onTap: onChanged),
           _TabItem(label: 'Pending', value: 'active', selected: selected, onTap: onChanged),
@@ -607,17 +595,12 @@ class _FloatingTabBar extends StatelessWidget {
             child: Container(
               width: 46,
               height: 46,
-              margin: const EdgeInsets.symmetric(horizontal: 4),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    colors: [Color(0xFFCB7D3A), Color(0xFFE8A860)], // warm amber always
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                gradient: AppTheme.primaryGradient,
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFFCB7D3A).withValues(alpha: 0.45),
+                    color: AppTheme.primary.withValues(alpha: 0.45),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -652,42 +635,42 @@ class _TabItem extends StatelessWidget {
     final isSelected = selected == value;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
-    final highlightColor = const Color(0xFFCB7D3A);
+    final highlightColor = AppTheme.primary;
     final unselectedColor = isDark 
-        ? const Color(0xFF8B7060) 
+        ? AppTheme.textSecondaryDm 
         : AppTheme.textSecondary;
 
-    return Expanded(
-      child: GestureDetector(
-        onTap: () => onTap(value),
-        child: Container(
-          color: Colors.transparent,
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                label,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                  color: isSelected ? highlightColor : unselectedColor,
-                ),
+    return GestureDetector(
+      onTap: () => onTap(value),
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        color: Colors.transparent,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                color: isSelected ? highlightColor : unselectedColor,
               ),
-              const SizedBox(height: 4),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                width: isSelected ? 5 : 0,
-                height: 5,
-                decoration: BoxDecoration(
-                  color: highlightColor,
-                  shape: BoxShape.circle,
-                ),
+            ),
+            const SizedBox(height: 4),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: isSelected ? 5 : 0,
+              height: 5,
+              decoration: BoxDecoration(
+                color: highlightColor,
+                shape: BoxShape.circle,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

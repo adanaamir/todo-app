@@ -34,19 +34,19 @@ class TaskTile extends StatelessWidget {
     final isDark = cs.brightness == Brightness.dark;
 
     final cardBg = isDark
-        ? const Color(0xFF2A1C10)
+        ? AppTheme.bgCardDm
         : Colors.white;
     final cardBorder = isDark
-        ? const Color(0xFF4A3520)
-        : const Color(0xFFEEE0CC);
+        ? const Color(0xFF25213F)
+        : const Color(0xFFE8E5F7);
     final titleColor = isDark
-        ? const Color(0xFFF5E8D5)
+        ? AppTheme.textPrimaryDm
         : AppTheme.textPrimary;
     final subtitleColor = isDark
-        ? const Color(0xFFB89F8A)
+        ? AppTheme.textSecondaryDm
         : AppTheme.textSecondary;
     final mutedColor = isDark
-        ? const Color(0xFF8B7060)
+        ? AppTheme.textMutedDm
         : AppTheme.textMuted;
 
     return Padding(
@@ -62,17 +62,17 @@ class TaskTile extends StatelessWidget {
               backgroundColor: AppTheme.primary.withValues(alpha: 0.18),
               foregroundColor: AppTheme.primary,
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
+                topLeft: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.edit_rounded, size: 22),
+                  const Icon(Icons.edit_rounded, size: 20),
                   const SizedBox(height: 4),
                   Text('Edit',
                       style: GoogleFonts.poppins(
-                          fontSize: 11, fontWeight: FontWeight.w600)),
+                          fontSize: 10.5, fontWeight: FontWeight.w600)),
                 ],
               ),
             ),
@@ -81,17 +81,17 @@ class TaskTile extends StatelessWidget {
               backgroundColor: AppTheme.error.withValues(alpha: 0.18),
               foregroundColor: AppTheme.error,
               borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(16),
-                bottomRight: Radius.circular(16),
+                topRight: Radius.circular(12),
+                bottomRight: Radius.circular(12),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.delete_outline_rounded, size: 22),
+                  const Icon(Icons.delete_outline_rounded, size: 20),
                   const SizedBox(height: 4),
                   Text('Delete',
                       style: GoogleFonts.poppins(
-                          fontSize: 11, fontWeight: FontWeight.w600)),
+                          fontSize: 10.5, fontWeight: FontWeight.w600)),
                 ],
               ),
             ),
@@ -105,7 +105,7 @@ class TaskTile extends StatelessWidget {
               color: task.isCompleted
                   ? cardBg.withValues(alpha: 0.6)
                   : cardBg,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: task.isCompleted
                     ? AppTheme.success.withValues(alpha: 0.3)
@@ -122,33 +122,33 @@ class TaskTile extends StatelessWidget {
                     ],
             ),
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Priority stripe
                   Container(
-                    width: 4,
-                    height: 50,
+                    width: 3.5,
+                    height: 42,
                     decoration: BoxDecoration(
                       color: task.isCompleted ? mutedColor : _priorityColor,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(3),
                     ),
                   ),
-                  const SizedBox(width: 14),
+                  const SizedBox(width: 12),
                   // Checkbox
                   GestureDetector(
                     onTap: onToggle,
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
-                      width: 26,
-                      height: 26,
+                      width: 22,
+                      height: 22,
                       margin: const EdgeInsets.only(top: 2),
                       decoration: BoxDecoration(
                         color: task.isCompleted
                             ? AppTheme.success.withValues(alpha: 0.2)
                             : Colors.transparent,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(6),
                         border: Border.all(
                           color: task.isCompleted ? AppTheme.success : mutedColor,
                           width: 2,
@@ -156,11 +156,11 @@ class TaskTile extends StatelessWidget {
                       ),
                       child: task.isCompleted
                           ? const Icon(Icons.check_rounded,
-                              color: AppTheme.success, size: 16)
+                              color: AppTheme.success, size: 13)
                           : null,
                     ),
                   ),
-                  const SizedBox(width: 14),
+                  const SizedBox(width: 12),
                   // Content
                   Expanded(
                     child: Column(
@@ -169,7 +169,7 @@ class TaskTile extends StatelessWidget {
                         Text(
                           task.title,
                           style: GoogleFonts.poppins(
-                            fontSize: 15,
+                            fontSize: 13.5,
                             fontWeight: FontWeight.w600,
                             color: task.isCompleted ? mutedColor : titleColor,
                             decoration: task.isCompleted
