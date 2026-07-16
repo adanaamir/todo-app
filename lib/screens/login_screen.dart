@@ -233,14 +233,14 @@ class _LoginScreenState extends State<LoginScreen>
                           TextSpan(
                             text: "Don't have an account? ",
                             style: GoogleFonts.poppins(
-                              color: AppTheme.textSecondary,
+                              color: isDark ? AppTheme.textSecondaryDm : AppTheme.textSecondary,
                               fontSize: 14,
                             ),
                             children: [
                               TextSpan(
                                 text: 'Sign Up',
                                 style: GoogleFonts.poppins(
-                                  color: AppTheme.primary,
+                                  color: isDark ? AppTheme.primaryLight : AppTheme.primary,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),

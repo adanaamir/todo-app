@@ -451,6 +451,10 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textPrimaryColor = isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary;
+    final textSecondaryColor = isDark ? AppTheme.textSecondaryDm : AppTheme.textSecondary;
+
     final (icon, title, subtitle) = switch (filter) {
       'active' => (
           Icons.playlist_add_check_circle_outlined,
@@ -489,7 +493,7 @@ class _EmptyState extends StatelessWidget {
             style: GoogleFonts.poppins(
               fontSize: 18,
               fontWeight: FontWeight.w700,
-              color: AppTheme.textPrimary,
+              color: textPrimaryColor,
             ),
           ),
           const SizedBox(height: 6),
@@ -497,7 +501,7 @@ class _EmptyState extends StatelessWidget {
             subtitle,
             style: GoogleFonts.poppins(
               fontSize: 13,
-              color: AppTheme.textSecondary,
+              color: textSecondaryColor,
             ),
             textAlign: TextAlign.center,
           ),
@@ -635,7 +639,7 @@ class _TabItem extends StatelessWidget {
     final isSelected = selected == value;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
-    final highlightColor = AppTheme.primary;
+    final highlightColor = isDark ? Colors.white : AppTheme.textPrimary;
     final unselectedColor = isDark 
         ? AppTheme.textSecondaryDm 
         : AppTheme.textSecondary;
@@ -702,6 +706,10 @@ class _CalendarViewState extends State<_CalendarView> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textPrimaryColor = isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary;
+    final textSecondaryColor = isDark ? AppTheme.textSecondaryDm : AppTheme.textSecondary;
+
     final selectedTasks =
         _selectedDay != null ? _getTasksForDay(_selectedDay!) : <TaskModel>[];
 
@@ -713,11 +721,11 @@ class _CalendarViewState extends State<_CalendarView> {
           // Calendar
           Container(
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.7),
+              color: isDark ? AppTheme.bgCardDm.withValues(alpha: 0.8) : Colors.white.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: AppTheme.primary.withValues(alpha: 0.08),
+                  color: isDark ? Colors.black.withValues(alpha: 0.25) : AppTheme.textSecondary.withValues(alpha: 0.06),
                   blurRadius: 16,
                   offset: const Offset(0, 4),
                 ),
@@ -741,19 +749,19 @@ class _CalendarViewState extends State<_CalendarView> {
                 titleTextStyle: GoogleFonts.poppins(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color: AppTheme.textPrimary,
+                  color: textPrimaryColor,
                 ),
-                leftChevronIcon: const Icon(
-                    Icons.chevron_left_rounded, color: AppTheme.primary),
-                rightChevronIcon: const Icon(
-                    Icons.chevron_right_rounded, color: AppTheme.primary),
+                leftChevronIcon: Icon(
+                    Icons.chevron_left_rounded, color: textSecondaryColor),
+                rightChevronIcon: Icon(
+                    Icons.chevron_right_rounded, color: textSecondaryColor),
                 headerPadding: const EdgeInsets.symmetric(vertical: 10),
               ),
               daysOfWeekStyle: DaysOfWeekStyle(
                 weekdayStyle: GoogleFonts.poppins(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: AppTheme.textSecondary),
+                    color: textSecondaryColor),
                 weekendStyle: GoogleFonts.poppins(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -762,27 +770,27 @@ class _CalendarViewState extends State<_CalendarView> {
               calendarStyle: CalendarStyle(
                 outsideDaysVisible: false,
                 todayDecoration: BoxDecoration(
-                  color: AppTheme.primary.withValues(alpha: 0.2),
+                  color: isDark ? Colors.white.withValues(alpha: 0.15) : AppTheme.textPrimary.withValues(alpha: 0.08),
                   shape: BoxShape.circle,
                 ),
                 todayTextStyle: GoogleFonts.poppins(
-                  color: AppTheme.primary,
+                  color: textPrimaryColor,
                   fontWeight: FontWeight.w700,
                 ),
-                selectedDecoration: const BoxDecoration(
-                  color: AppTheme.primary,
+                selectedDecoration: BoxDecoration(
+                  color: textPrimaryColor,
                   shape: BoxShape.circle,
                 ),
                 selectedTextStyle: GoogleFonts.poppins(
-                  color: Colors.white,
+                  color: isDark ? AppTheme.bgDarkDm : Colors.white,
                   fontWeight: FontWeight.w700,
                 ),
                 defaultTextStyle:
-                    GoogleFonts.poppins(color: AppTheme.textPrimary),
+                    GoogleFonts.poppins(color: textPrimaryColor),
                 weekendTextStyle:
                     GoogleFonts.poppins(color: AppTheme.secondary),
-                markerDecoration: const BoxDecoration(
-                  color: AppTheme.primary,
+                markerDecoration: BoxDecoration(
+                  color: textSecondaryColor,
                   shape: BoxShape.circle,
                 ),
                 markerSize: 5,

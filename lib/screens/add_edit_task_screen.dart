@@ -139,7 +139,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen>
           leading: IconButton(
           icon: Icon(
             Icons.close_rounded,
-            color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+            color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary,
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -148,7 +148,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen>
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w700,
-            color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+            color: isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary,
           ),
         ),
         actions: [
@@ -280,7 +280,7 @@ class _SectionLabel extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: 13,
         fontWeight: FontWeight.w600,
-        color: isDark ? const Color(0xFFB89F8A) : AppTheme.textSecondary,
+        color: isDark ? AppTheme.textSecondaryDm : AppTheme.textSecondary,
         letterSpacing: 0.5,
       ),
     );
@@ -376,6 +376,7 @@ class _DueDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: onPick,
       child: Container(
@@ -385,10 +386,8 @@ class _DueDatePicker extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: date != null
-                ? AppTheme.primary.withValues(alpha: 0.5)
-                : (Theme.of(context).brightness == Brightness.dark
-                    ? const Color(0xFF581C87)
-                    : const Color(0xFFD8B4FE)),
+                ? (isDark ? AppTheme.textSecondaryDm.withValues(alpha: 0.3) : AppTheme.textSecondary.withValues(alpha: 0.2))
+                : (isDark ? const Color(0xFF581C87) : const Color(0xFFD8B4FE)),
             width: 1,
           ),
         ),
@@ -396,7 +395,9 @@ class _DueDatePicker extends StatelessWidget {
           children: [
             Icon(
               Icons.calendar_today_rounded,
-              color: date != null ? AppTheme.primary : AppTheme.textSecondary,
+              color: date != null
+                  ? (isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary)
+                  : (isDark ? AppTheme.textMutedDm : AppTheme.textMuted),
               size: 18,
             ),
             const SizedBox(width: 12),
@@ -406,8 +407,9 @@ class _DueDatePicker extends StatelessWidget {
                     ? DateFormat('EEE, MMM d, yyyy').format(date!)
                     : 'Pick a due date',
                 style: GoogleFonts.poppins(
-                  color:
-                      date != null ? AppTheme.textPrimary : AppTheme.textMuted,
+                  color: date != null
+                      ? (isDark ? AppTheme.textPrimaryDm : AppTheme.textPrimary)
+                      : (isDark ? AppTheme.textMutedDm : AppTheme.textMuted),
                   fontSize: 13.5,
                 ),
               ),

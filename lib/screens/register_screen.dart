@@ -276,14 +276,14 @@ class _RegisterScreenState extends State<RegisterScreen>
                           TextSpan(
                             text: 'Already have an account? ',
                             style: GoogleFonts.poppins(
-                              color: AppTheme.textSecondary,
+                              color: isDark ? AppTheme.textSecondaryDm : AppTheme.textSecondary,
                               fontSize: 14,
                             ),
                             children: [
                               TextSpan(
                                 text: 'Sign In',
                                 style: GoogleFonts.poppins(
-                                  color: AppTheme.primary,
+                                  color: isDark ? AppTheme.primaryLight : AppTheme.primary,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
