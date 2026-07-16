@@ -30,6 +30,25 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final isDark = cs.brightness == Brightness.dark;
+
+    final cardBg = isDark
+        ? const Color(0xFF2A1C10)
+        : Colors.white;
+    final cardBorder = isDark
+        ? const Color(0xFF4A3520)
+        : const Color(0xFFEEE0CC);
+    final titleColor = isDark
+        ? const Color(0xFFF5E8D5)
+        : AppTheme.textPrimary;
+    final subtitleColor = isDark
+        ? const Color(0xFFB89F8A)
+        : AppTheme.textSecondary;
+    final mutedColor = isDark
+        ? const Color(0xFF8B7060)
+        : AppTheme.textMuted;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Slidable(
@@ -84,21 +103,21 @@ class TaskTile extends StatelessWidget {
             duration: const Duration(milliseconds: 300),
             decoration: BoxDecoration(
               color: task.isCompleted
-                  ? AppTheme.bgCard.withValues(alpha: 0.6)
-                  : AppTheme.bgCard,
+                  ? cardBg.withValues(alpha: 0.6)
+                  : cardBg,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
                 color: task.isCompleted
                     ? AppTheme.success.withValues(alpha: 0.3)
-                    : const Color(0xFF2A2A4A),
+                    : cardBorder,
               ),
               boxShadow: task.isCompleted
                   ? []
                   : [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.2),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
+                        color: Colors.black.withValues(alpha: isDark ? 0.35 : 0.08),
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
                       ),
                     ],
             ),
@@ -112,9 +131,7 @@ class TaskTile extends StatelessWidget {
                     width: 4,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: task.isCompleted
-                          ? AppTheme.textMuted
-                          : _priorityColor,
+                      color: task.isCompleted ? mutedColor : _priorityColor,
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
@@ -133,9 +150,7 @@ class TaskTile extends StatelessWidget {
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: task.isCompleted
-                              ? AppTheme.success
-                              : AppTheme.textMuted,
+                          color: task.isCompleted ? AppTheme.success : mutedColor,
                           width: 2,
                         ),
                       ),
@@ -156,13 +171,11 @@ class TaskTile extends StatelessWidget {
                           style: GoogleFonts.poppins(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
-                            color: task.isCompleted
-                                ? AppTheme.textMuted
-                                : AppTheme.textPrimary,
+                            color: task.isCompleted ? mutedColor : titleColor,
                             decoration: task.isCompleted
                                 ? TextDecoration.lineThrough
                                 : null,
-                            decorationColor: AppTheme.textMuted,
+                            decorationColor: mutedColor,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -174,9 +187,8 @@ class TaskTile extends StatelessWidget {
                             style: GoogleFonts.poppins(
                               fontSize: 12,
                               color: task.isCompleted
-                                  ? AppTheme.textMuted
-                                      .withValues(alpha: 0.6)
-                                  : AppTheme.textSecondary,
+                                  ? mutedColor.withValues(alpha: 0.6)
+                                  : subtitleColor,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -185,17 +197,18 @@ class TaskTile extends StatelessWidget {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            // Priority chip
                             _PriorityChip(
                               priority: task.priority,
                               color: _priorityColor,
                               isCompleted: task.isCompleted,
+                              mutedColor: mutedColor,
                             ),
                             if (task.dueDate != null) ...[
                               const SizedBox(width: 8),
                               _DueDateChip(
                                 date: task.dueDate!,
                                 isCompleted: task.isCompleted,
+                                mutedColor: mutedColor,
                               ),
                             ],
                           ],
@@ -204,9 +217,9 @@ class TaskTile extends StatelessWidget {
                     ),
                   ),
                   // Swipe hint
-                  const Icon(
+                  Icon(
                     Icons.chevron_left_rounded,
-                    color: AppTheme.textMuted,
+                    color: mutedColor,
                     size: 18,
                   ),
                 ],
@@ -223,11 +236,13 @@ class _PriorityChip extends StatelessWidget {
   final TaskPriority priority;
   final Color color;
   final bool isCompleted;
+  final Color mutedColor;
 
   const _PriorityChip({
     required this.priority,
     required this.color,
     required this.isCompleted,
+    required this.mutedColor,
   });
 
   @override
@@ -237,7 +252,7 @@ class _PriorityChip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
         color: isCompleted
-            ? AppTheme.textMuted.withValues(alpha: 0.1)
+            ? mutedColor.withValues(alpha: 0.1)
             : color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(6),
       ),
@@ -246,7 +261,7 @@ class _PriorityChip extends StatelessWidget {
         style: GoogleFonts.poppins(
           fontSize: 10,
           fontWeight: FontWeight.w600,
-          color: isCompleted ? AppTheme.textMuted : color,
+          color: isCompleted ? mutedColor : color,
         ),
       ),
     );
@@ -256,14 +271,19 @@ class _PriorityChip extends StatelessWidget {
 class _DueDateChip extends StatelessWidget {
   final DateTime date;
   final bool isCompleted;
+  final Color mutedColor;
 
-  const _DueDateChip({required this.date, required this.isCompleted});
+  const _DueDateChip({
+    required this.date,
+    required this.isCompleted,
+    required this.mutedColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     final isOverdue = !isCompleted && date.isBefore(DateTime.now());
     final color = isCompleted
-        ? AppTheme.textMuted
+        ? mutedColor
         : isOverdue
             ? AppTheme.error
             : AppTheme.textSecondary;

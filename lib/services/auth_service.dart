@@ -3,13 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Stream of auth state changes
+  //Stream of auth state changes
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
-  // Current user
+  //Current user
   User? get currentUser => _auth.currentUser;
 
-  // Register with email & password
+  //Register with email & password
   Future<UserCredential> registerWithEmail({
     required String email,
     required String password,
@@ -20,7 +20,7 @@ class AuthService {
     );
   }
 
-  // Login with email & password
+  //Login with email & password
   Future<UserCredential> loginWithEmail({
     required String email,
     required String password,
@@ -33,10 +33,10 @@ class AuthService {
 
   // Logout
   Future<void> logout() async {
-    await _auth.signOut();
+    await _auth.signOut();      // connecting to firebase authentication
   }
 
-  // Map Firebase error codes to user-friendly messages
+  //Mapping Firebase error codes to user-friendly messages
   static String getErrorMessage(String code) {
     switch (code) {
       case 'user-not-found':

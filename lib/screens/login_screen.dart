@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/auth_service.dart';
 import '../theme/app_theme.dart';
+import '../widgets/premium_ambient_background.dart';
 import 'home_screen.dart';
 import 'register_screen.dart';
 
@@ -80,10 +81,16 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(gradient: AppTheme.bgGradient),
-        child: SafeArea(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return PremiumAmbientBackground(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Container(
+          width: double.infinity,
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
+          ),
+          child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 40),
             child: FadeTransition(
@@ -94,34 +101,13 @@ class _LoginScreenState extends State<LoginScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 30),
-                    // Logo / Icon
-                    Container(
-                      width: 64,
-                      height: 64,
-                      decoration: BoxDecoration(
-                        gradient: AppTheme.primaryGradient,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppTheme.primary.withValues(alpha: 0.4),
-                            blurRadius: 20,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.check_rounded,
-                        color: Colors.white,
-                        size: 36,
-                      ),
-                    ),
                     const SizedBox(height: 32),
                     Text(
-                      'Welcome back',
+                      'Welcome to Ordely!',
                       style: GoogleFonts.poppins(
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
-                        color: AppTheme.textPrimary,
+                        color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 6),
@@ -129,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen>
                       'Sign in to continue',
                       style: GoogleFonts.poppins(
                         fontSize: 15,
-                        color: AppTheme.textSecondary,
+                        color: isDark ? const Color(0xFFB89F8A) : AppTheme.textSecondary,
                       ),
                     ),
                     const SizedBox(height: 40),
@@ -148,7 +134,9 @@ class _LoginScreenState extends State<LoginScreen>
                           TextFormField(
                             controller: _emailCtrl,
                             keyboardType: TextInputType.emailAddress,
-                            style: const TextStyle(color: AppTheme.textPrimary),
+                            style: TextStyle(
+                              color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                            ),
                             decoration: const InputDecoration(
                               labelText: 'Email',
                               hintText: 'you@example.com',
@@ -170,7 +158,9 @@ class _LoginScreenState extends State<LoginScreen>
                           TextFormField(
                             controller: _passwordCtrl,
                             obscureText: _obscurePassword,
-                            style: const TextStyle(color: AppTheme.textPrimary),
+                            style: TextStyle(
+                            color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                          ),
                             decoration: InputDecoration(
                               labelText: 'Password',
                               hintText: '••••••••',
@@ -200,9 +190,32 @@ class _LoginScreenState extends State<LoginScreen>
                             width: double.infinity,
                             child: _isLoading
                                 ? const _LoadingButton()
-                                : ElevatedButton(
-                                    onPressed: _login,
-                                    child: const Text('Sign In'),
+                                : GestureDetector(
+                                    onTap: _login,
+                                    child: Container(
+                                      height: 52,
+                                      decoration: BoxDecoration(
+                                        gradient: AppTheme.primaryGradient,
+                                        borderRadius: BorderRadius.circular(16),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color(0xFFCB7D3A).withValues(alpha: 0.35),
+                                            blurRadius: 16,
+                                            offset: const Offset(0, 6),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Sign In',
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                           ),
                         ],
@@ -226,6 +239,9 @@ class _LoginScreenState extends State<LoginScreen>
                             MaterialPageRoute(
                                 builder: (_) => const RegisterScreen()),
                           ),
+                          style: TextButton.styleFrom(
+                            foregroundColor: const Color(0xFFCB7D3A),
+                          ),
                           child: const Text('Sign Up'),
                         ),
                       ],
@@ -237,8 +253,9 @@ class _LoginScreenState extends State<LoginScreen>
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 class _ErrorBanner extends StatelessWidget {

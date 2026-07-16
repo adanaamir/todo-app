@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/auth_service.dart';
 import '../theme/app_theme.dart';
+import '../widgets/premium_ambient_background.dart';
 import 'home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -83,10 +84,16 @@ class _RegisterScreenState extends State<RegisterScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(gradient: AppTheme.bgGradient),
-        child: SafeArea(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return PremiumAmbientBackground(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Container(
+          width: double.infinity,
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
+          ),
+          child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 40),
             child: FadeTransition(
@@ -99,38 +106,19 @@ class _RegisterScreenState extends State<RegisterScreen>
                     // Back button
                     IconButton(
                       onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                          color: AppTheme.textPrimary),
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                      ),
                       padding: EdgeInsets.zero,
                     ),
                     const SizedBox(height: 24),
-                    Container(
-                      width: 64,
-                      height: 64,
-                      decoration: BoxDecoration(
-                        gradient: AppTheme.primaryGradient,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppTheme.primary.withValues(alpha: 0.4),
-                            blurRadius: 20,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.person_add_rounded,
-                        color: Colors.white,
-                        size: 32,
-                      ),
-                    ),
-                    const SizedBox(height: 32),
                     Text(
                       'Create account',
                       style: GoogleFonts.poppins(
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
-                        color: AppTheme.textPrimary,
+                        color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 6),
@@ -138,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                       'Start organizing your tasks',
                       style: GoogleFonts.poppins(
                         fontSize: 15,
-                        color: AppTheme.textSecondary,
+                        color: isDark ? const Color(0xFFB89F8A) : AppTheme.textSecondary,
                       ),
                     ),
                     const SizedBox(height: 40),
@@ -156,7 +144,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                           TextFormField(
                             controller: _emailCtrl,
                             keyboardType: TextInputType.emailAddress,
-                            style: const TextStyle(color: AppTheme.textPrimary),
+                            style: TextStyle(
+                            color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                          ),
                             decoration: const InputDecoration(
                               labelText: 'Email',
                               hintText: 'you@example.com',
@@ -178,7 +168,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                           TextFormField(
                             controller: _passwordCtrl,
                             obscureText: _obscurePassword,
-                            style: const TextStyle(color: AppTheme.textPrimary),
+                            style: TextStyle(
+                              color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                            ),
                             decoration: InputDecoration(
                               labelText: 'Password',
                               hintText: '••••••••',
@@ -210,7 +202,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                           TextFormField(
                             controller: _confirmPasswordCtrl,
                             obscureText: _obscureConfirm,
-                            style: const TextStyle(color: AppTheme.textPrimary),
+                            style: TextStyle(
+                              color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+                            ),
                             decoration: InputDecoration(
                               labelText: 'Confirm Password',
                               hintText: '••••••••',
@@ -242,9 +236,32 @@ class _RegisterScreenState extends State<RegisterScreen>
                             width: double.infinity,
                             child: _isLoading
                                 ? const _LoadingButton()
-                                : ElevatedButton(
-                                    onPressed: _register,
-                                    child: const Text('Create Account'),
+                                : GestureDetector(
+                                    onTap: _register,
+                                    child: Container(
+                                      height: 52,
+                                      decoration: BoxDecoration(
+                                        gradient: AppTheme.primaryGradient,
+                                        borderRadius: BorderRadius.circular(16),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color(0xFFCB7D3A).withValues(alpha: 0.35),
+                                            blurRadius: 16,
+                                            offset: const Offset(0, 6),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Create Account',
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                           ),
                         ],
@@ -263,6 +280,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                         ),
                         TextButton(
                           onPressed: () => Navigator.pop(context),
+                          style: TextButton.styleFrom(
+                            foregroundColor: const Color(0xFFCB7D3A),
+                          ),
                           child: const Text('Sign In'),
                         ),
                       ],
@@ -274,8 +294,9 @@ class _RegisterScreenState extends State<RegisterScreen>
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 class _ErrorBanner extends StatelessWidget {

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../models/task_model.dart';
 import '../services/task_service.dart';
 import '../theme/app_theme.dart';
+import '../widgets/premium_ambient_background.dart';
 
 class AddEditTaskScreen extends StatefulWidget {
   final String userId;
@@ -128,20 +129,26 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.bgDark,
-      appBar: AppBar(
-        backgroundColor: AppTheme.bgCard,
-        leading: IconButton(
-          icon: const Icon(Icons.close_rounded, color: AppTheme.textPrimary),
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return PremiumAmbientBackground(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+          icon: Icon(
+            Icons.close_rounded,
+            color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           _isEditing ? 'Edit Task' : 'New Task',
           style: GoogleFonts.poppins(
             fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: AppTheme.textPrimary,
+            fontWeight: FontWeight.w700,
+            color: isDark ? const Color(0xFFF5E8D5) : AppTheme.textPrimary,
           ),
         ),
         actions: [
@@ -156,24 +163,32 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen>
                       strokeWidth: 2,
                     ),
                   )
-                : TextButton(
-                    onPressed: _save,
-                    style: TextButton.styleFrom(
-                      backgroundColor:
-                          AppTheme.primary.withValues(alpha: 0.15),
-                      shape: RoundedRectangleBorder(
+                : GestureDetector(
+                    onTap: _save,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                      decoration: BoxDecoration(
+                        gradient: AppTheme.primaryGradient,
                         borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFFCB7D3A).withValues(alpha: 0.30),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
                       ),
-                    ),
-                    child: Text(
-                      _isEditing ? 'Update' : 'Save',
-                      style: GoogleFonts.poppins(
-                        color: AppTheme.primary,
-                        fontWeight: FontWeight.w600,
+                      child: Text(
+                        _isEditing ? 'Update' : 'Save',
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
-          )
+          ),
         ],
       ),
       body: FadeTransition(
@@ -248,8 +263,9 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen>
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 class _SectionLabel extends StatelessWidget {
@@ -258,12 +274,13 @@ class _SectionLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Text(
       label,
       style: GoogleFonts.poppins(
         fontSize: 13,
         fontWeight: FontWeight.w600,
-        color: AppTheme.textSecondary,
+        color: isDark ? const Color(0xFFB89F8A) : AppTheme.textSecondary,
         letterSpacing: 0.5,
       ),
     );
@@ -281,6 +298,9 @@ class _PrioritySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final unselectedBg = isDark ? const Color(0xFF362415) : AppTheme.bgCardLight;
+    final unselectedFg = isDark ? const Color(0xFF8B7060) : AppTheme.textMuted;
     return Row(
       children: TaskPriority.values.map((p) {
         final isSelected = p == selected;
@@ -312,7 +332,7 @@ class _PrioritySelector extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isSelected
                     ? color.withValues(alpha: 0.18)
-                    : AppTheme.bgCardLight,
+                    : unselectedBg,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(
                   color: isSelected ? color : Colors.transparent,
@@ -322,7 +342,7 @@ class _PrioritySelector extends StatelessWidget {
               child: Column(
                 children: [
                   Icon(icon,
-                      color: isSelected ? color : AppTheme.textMuted,
+                      color: isSelected ? color : unselectedFg,
                       size: 18),
                   const SizedBox(height: 4),
                   Text(
@@ -330,7 +350,7 @@ class _PrioritySelector extends StatelessWidget {
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: isSelected ? color : AppTheme.textMuted,
+                      color: isSelected ? color : unselectedFg,
                     ),
                   ),
                 ],
