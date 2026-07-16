@@ -175,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //Custom App Bar
                 SliverAppBar(
                   backgroundColor: Colors.transparent,
-                  expandedHeight: 120,
+                  expandedHeight: 200,
                   pinned: true,
                   elevation: 0,
                   automaticallyImplyLeading: false,
@@ -251,7 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 'Ordely',
                                 style: GoogleFonts.poppins(
-                                  fontSize: 18,
+                                  fontSize: 22,
                                   fontWeight: FontWeight.w700,
                                   color: isDark
                                       ? AppTheme.textPrimaryDm
@@ -260,7 +260,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                'Good day!',
+                                'Manage your daily tasks',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w700,
+                                  color: isDark
+                                      ? const Color(0xFFC084FC)
+                                      : const Color(0xFF5B21B6),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                'Your Tasks',
                                 style: GoogleFonts.poppins(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,
@@ -295,13 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
-                          if (index == 0) {
-                            return _StatsRow(
-                              total: allTasks.length,
-                              completed: completedCount,
-                            );
-                          }
-                          final task = tasks[index - 1];
+                          final task = tasks[index];
                           return TaskTile(
                             key: ValueKey(task.id),
                             task: task,
@@ -318,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onDelete: () => _deleteTask(task),
                           );
                         },
-                        childCount: tasks.length + 1,
+                        childCount: tasks.length,
                       ),
                     ),
                   ),
@@ -343,70 +348,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // ─── Helper Widgets ────────────────────────────────────────────────────────
 
-class _StatsRow extends StatelessWidget {
-  final int total;
-  final int completed;
 
-  const _StatsRow({required this.total, required this.completed});
-
-  @override
-  Widget build(BuildContext context) {
-    final progress = total > 0 ? completed / total : 0.0;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          gradient: AppTheme.primaryGradient,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: AppTheme.primary.withValues(alpha: 0.30),
-              blurRadius: 20,
-              offset: const Offset(0, 6),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '$completed of $total done',
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white.withValues(alpha: 0.9),
-                  ),
-                ),
-                Text(
-                  '${(progress * 100).toInt()}%',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: LinearProgressIndicator(
-                value: progress,
-                backgroundColor: Colors.white.withValues(alpha: 0.2),
-                valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-                minHeight: 6,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class _LoadingState extends StatelessWidget {
   const _LoadingState();
