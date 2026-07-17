@@ -55,43 +55,73 @@ class TaskTile extends StatelessWidget {
         key: ValueKey(task.id),
         endActionPane: ActionPane(
           motion: const BehindMotion(),
-          extentRatio: 0.55,
+          extentRatio: 0.65,
           children: [
             CustomSlidableAction(
               onPressed: (_) => onEdit(),
-              backgroundColor: AppTheme.primary.withValues(alpha: 0.18),
+              backgroundColor: Colors.transparent,
               foregroundColor: AppTheme.primary,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.edit_rounded, size: 20),
-                  const SizedBox(height: 4),
-                  Text('Edit',
-                      style: GoogleFonts.poppins(
-                          fontSize: 10.5, fontWeight: FontWeight.w600)),
+                  Container(
+                    width: 68,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      color: isDark 
+                          ? AppTheme.primary.withValues(alpha: 0.25) 
+                          : AppTheme.primary.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Icon(
+                      Icons.edit_rounded,
+                      size: 18,
+                      color: AppTheme.primary,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Edit',
+                    style: GoogleFonts.poppins(
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? AppTheme.textSecondaryDm : AppTheme.textSecondary,
+                    ),
+                  ),
                 ],
               ),
             ),
             CustomSlidableAction(
               onPressed: (_) => onDelete(),
-              backgroundColor: AppTheme.error.withValues(alpha: 0.18),
+              backgroundColor: Colors.transparent,
               foregroundColor: AppTheme.error,
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(12),
-                bottomRight: Radius.circular(12),
-              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.delete_outline_rounded, size: 20),
-                  const SizedBox(height: 4),
-                  Text('Delete',
-                      style: GoogleFonts.poppins(
-                          fontSize: 10.5, fontWeight: FontWeight.w600)),
+                  Container(
+                    width: 68,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      color: isDark 
+                          ? AppTheme.error.withValues(alpha: 0.25) 
+                          : AppTheme.error.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Icon(
+                      Icons.delete_outline_rounded,
+                      size: 18,
+                      color: AppTheme.error,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Delete',
+                    style: GoogleFonts.poppins(
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? AppTheme.textSecondaryDm : AppTheme.textSecondary,
+                    ),
+                  ),
                 ],
               ),
             ),
