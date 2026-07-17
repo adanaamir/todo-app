@@ -262,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 'Manage your daily tasks',
                                 style: GoogleFonts.poppins(
-                                  fontSize: 30,
+                                  fontSize: 26,
                                   fontWeight: FontWeight.w700,
                                   color: isDark
                                       ? const Color(0xFFC084FC)
@@ -273,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 'Your Tasks',
                                 style: GoogleFonts.poppins(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w700,
                                   color: isDark
                                       ? AppTheme.textPrimaryDm
