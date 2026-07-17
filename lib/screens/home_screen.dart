@@ -175,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //Custom App Bar
                 SliverAppBar(
                   backgroundColor: Colors.transparent,
-                  expandedHeight: 200,
+                  expandedHeight: _filter == 'calendar' ? 160 : 200,
                   pinned: true,
                   elevation: 0,
                   automaticallyImplyLeading: false,
@@ -269,17 +269,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                       : const Color(0xFF5B21B6),
                                 ),
                               ),
-                              const SizedBox(height: 16),
-                              Text(
-                                'Your Tasks',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  color: isDark
-                                      ? AppTheme.textPrimaryDm
-                                      : AppTheme.textPrimary,
+                              if (_filter != 'calendar') ...[
+                                const SizedBox(height: 16),
+                                Text(
+                                  'Your Tasks',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: isDark
+                                        ? AppTheme.textPrimaryDm
+                                        : AppTheme.textPrimary,
+                                  ),
                                 ),
-                              ),
+                              ],
                             ],
                           ),
                         ),
