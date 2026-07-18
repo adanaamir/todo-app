@@ -14,9 +14,9 @@ class PremiumAmbientBackground extends StatelessWidget {
       color: isDark ? AppTheme.bgDarkDm : AppTheme.bgDark,
       child: Stack(
         children: [
-          // ── Large bottom warm purple glow ──────────────────
+          // Large bottom warm purple glow 
 
-          // ── Top-right violet glow ──────────────────────────────────
+          // Top-right violet glow 
           Positioned(
             top: -100,
             right: -120,
@@ -36,7 +36,7 @@ class PremiumAmbientBackground extends StatelessWidget {
               ),
             ),
           ),
-          // ── Top-left plum/lavender blush accent ─────────────────────────
+          // Top-left plum/lavender blush accent 
           Positioned(
             top: -60,
             left: -100,
@@ -56,7 +56,7 @@ class PremiumAmbientBackground extends StatelessWidget {
               ),
             ),
           ),
-          // ── Bottom-right deep indigo/wisteria ────────────────────────────────────
+          //  Bottom-right deep indigo/wisteria 
           Positioned(
             bottom: -40,
             right: -60,
